@@ -1,0 +1,6 @@
+{
+  "name": "PULSE — AI Social Dating & Gaming Platform",
+  "description": "Découvrez des personnes qui partagent votre énergie. Connectez-vous grâce au matchmaking IA, au jeu multijoueur, aux fils interactifs et aux expériences partagées.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #10101B;
+    --bg-secondary: #191827;
+    --bg-surface: #242139;
+    --text-primary: #FFFFFF;
+    --text-secondary: #C8C0D8;
+    --color-violet: #A77BFF;
+    --color-pink: #F58AC9;
+    --color-cyan: #48D9E6;
+    --color-green: #82E3B1;
+  }
+
+  body {
+    background-color: #10101B;
+    color: #FFFFFF;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Glassmorphism & Glow Effects */
+.glass-panel {
+  background: rgba(36, 33, 57, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(167, 123, 255, 0.12);
+}
+
+.glass-panel-elevated {
+  background: rgba(36, 33, 57, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(245, 138, 201, 0.16);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.5), 0 0 20px -2px rgba(167, 123, 255, 0.15);
+}
+
+.gradient-pulse {
+  background: linear-gradient(135deg, #A77BFF 0%, #F58AC9 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #A77BFF 0%, #F58AC9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #48D9E6 0%, #A77BFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+  background: linear-gradient(135deg, #A77BFF, #F58AC9);
+  padding: 1px;
+  border-radius: 1.25rem;
+}
+
+/* Custom Scrollbar for feeds and chats */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(16, 16, 27, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 123, 255, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 138, 201, 0.5);
+}
