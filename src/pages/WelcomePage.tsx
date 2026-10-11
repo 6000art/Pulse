@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import {
   Sparkles,
@@ -8,13 +8,11 @@ import {
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
-  Play,
   Users,
 } from 'lucide-react';
 
 export const WelcomePage: React.FC = () => {
   const { navigate, setActiveUniverse } = useApp();
-  const [selectedUniverse, setSelectedUniverse] = useState<number>(0);
 
   const universes = [
     {
@@ -26,7 +24,7 @@ export const WelcomePage: React.FC = () => {
       borderGlow: 'hover:border-[#F58AC9]/50 shadow-[#F58AC9]/10',
       icon: Heart,
       bgImage: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80',
-      stat: '94% de Précision Alchimique',
+      stat: 'Affinités à découvrir',
     },
     {
       id: 'friends',
@@ -37,7 +35,7 @@ export const WelcomePage: React.FC = () => {
       borderGlow: 'hover:border-[#A77BFF]/50 shadow-[#A77BFF]/10',
       icon: Users,
       bgImage: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
-      stat: 'Zéro Silence Gênant',
+      stat: 'Passions communes',
     },
     {
       id: 'play',
@@ -48,7 +46,7 @@ export const WelcomePage: React.FC = () => {
       borderGlow: 'hover:border-[#48D9E6]/50 shadow-[#48D9E6]/10',
       icon: Gamepad2,
       bgImage: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
-      stat: 'Jeu Synchronisé en Direct',
+      stat: 'Jouez ensemble',
     },
     {
       id: 'experiences',
@@ -59,7 +57,7 @@ export const WelcomePage: React.FC = () => {
       borderGlow: 'hover:border-[#82E3B1]/50 shadow-[#82E3B1]/10',
       icon: Calendar,
       bgImage: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80',
-      stat: 'Rencontres 18+ Soignées',
+      stat: 'Moments à partager',
     },
   ];
 
@@ -108,6 +106,8 @@ export const WelcomePage: React.FC = () => {
       </header>
 
       {/* Hero Cinématique */}
+      <div aria-hidden="true" className="absolute top-36 left-1/2 -translate-x-1/2 w-[min(90vw,720px)] aspect-square rounded-full border border-[#A77BFF]/15 shadow-[0_0_110px_20px_rgba(167,123,255,0.09),inset_0_0_100px_rgba(245,138,201,0.06)] pointer-events-none animate-[spin_70s_linear_infinite]" />
+      <div aria-hidden="true" className="absolute top-44 left-1/2 -translate-x-1/2 w-[min(75vw,570px)] aspect-square rounded-full border border-dashed border-[#48D9E6]/20 pointer-events-none animate-[spin_95s_linear_infinite_reverse]" />
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pt-10 pb-20 text-center max-w-5xl mx-auto">
         {/* Badge supérieur */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#191827] border border-[#A77BFF]/30 shadow-lg mb-8">
@@ -118,7 +118,7 @@ export const WelcomePage: React.FC = () => {
         </div>
 
         {/* Titres du Hero */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white font-heading tracking-tight leading-[1.1] mb-6">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold text-white font-heading tracking-tight leading-[1.1] mb-6">
           Rencontrez. Jouez. <span className="gradient-text">Connectez.</span>
         </h1>
 
@@ -144,18 +144,11 @@ export const WelcomePage: React.FC = () => {
           </button>
         </div>
 
-        {/* Métriques en direct */}
-        <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-3xl">
-          {[
-            { label: 'Affinités Vérifiées', val: '94.2%' },
-            { label: 'Salons de Jeux Ouverts', val: '12 400+' },
-            { label: 'Activités Partagées', val: '850+' },
-            { label: 'Réservé aux Adultes (18+)', val: '100% Sûr' },
-          ].map((item, i) => (
-            <div key={i} className="p-4 rounded-2xl bg-[#191827]/60 border border-white/5 backdrop-blur-md text-center">
-              <p className="text-xl sm:text-2xl font-black font-heading gradient-text">{item.val}</p>
-              <p className="text-[11px] text-[#C8C0D8]/70 mt-1 font-medium">{item.label}</p>
-            </div>
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-3" aria-label="Les univers PULSE">
+          {['Rencontres', 'Amitiés', 'Jeux', 'Expériences'].map((label) => (
+            <span key={label} className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-[#C8C0D8] backdrop-blur-md">
+              {label}
+            </span>
           ))}
         </div>
 
@@ -171,15 +164,24 @@ export const WelcomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {universes.map((univ, idx) => {
+            {universes.map((univ) => {
               const Icon = univ.icon;
 
               return (
                 <div
                   key={univ.id}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setActiveUniverse(univ.id as any);
+                      navigate('/onboarding');
+                    }
+                  }}
                   onClick={() => {
-                    setSelectedUniverse(idx);
                     setActiveUniverse(univ.id as any);
+                    navigate('/onboarding');
                   }}
                   className={`group relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-[#191827] border border-white/10 ${univ.borderGlow} transition-all duration-300 cursor-pointer shadow-lg`}
                 >
@@ -241,10 +243,10 @@ export const WelcomePage: React.FC = () => {
             </div>
             <div>
               <h4 className="text-base font-bold text-white font-heading">
-                Adultes 18+ Uniquement, IA Transparente et Zéro Spam Garanti
+                Une communauté pour adultes, avec des outils de sécurité
               </h4>
               <p className="text-xs text-[#C8C0D8] mt-1.5 leading-relaxed">
-                PULSE exige une vérification d'âge pour tous ses membres. Nous interdisons strictement les faux comptes automatisés (bots), ne monétisons aucun jeu d'argent, et vous laissons le contrôle total sur vos paramètres de confidentialité.
+                PULSE est destiné aux personnes majeures. Consultez les règles de la communauté, les outils de signalement et les paramètres de confidentialité avant de vous inscrire.
               </p>
               <div className="flex flex-wrap gap-4 mt-4 text-[11px] text-[#C8C0D8]/80 font-medium">
                 <span className="flex items-center gap-1.5">
@@ -275,7 +277,7 @@ export const WelcomePage: React.FC = () => {
       {/* Pied de page */}
       <footer className="relative z-10 border-t border-white/5 bg-[#10101B] py-8 px-6 text-center text-xs text-[#C8C0D8]/60">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 Plateforme PULSE. Nom de marque en cours d'enregistrement. Tous droits réservés.</p>
+          <p>© 2026 Plateforme PULSE. Tous droits réservés.</p>
           <div className="flex items-center gap-6 text-[#C8C0D8]/80">
             <button onClick={() => navigate('/safety')} className="hover:text-white transition-colors">
               Sécurité & Règles 18+
